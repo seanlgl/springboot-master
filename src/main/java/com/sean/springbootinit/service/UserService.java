@@ -1,8 +1,12 @@
 package com.sean.springbootinit.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sean.springbootinit.model.dto.user.UserLoginRequest;
 import com.sean.springbootinit.model.dto.user.UserQueryRequest;
+import com.sean.springbootinit.model.dto.user.UserRegisterRequest;
+import com.sean.springbootinit.model.dto.user.UserUpdateMyRequest;
 import com.sean.springbootinit.model.entity.User;
 import com.sean.springbootinit.model.vo.LoginUserVO;
 import com.sean.springbootinit.model.vo.UserVO;
@@ -19,22 +23,19 @@ public interface UserService extends IService<User> {
     /**
      * 用户注册
      *
-     * @param userAccount   用户账户
-     * @param userPassword  用户密码
-     * @param checkPassword 校验密码
+     * @param userRegisterRequest 用户注册请求
      * @return 新用户 id
      */
-    long userRegister(String userAccount, String userPassword, String checkPassword);
+    long userRegister(UserRegisterRequest userRegisterRequest);
 
     /**
      * 用户登录
      *
-     * @param userAccount  用户账户
-     * @param userPassword 用户密码
+     * @param userLoginRequest 用户登录请求
      * @param request
      * @return 脱敏后的用户信息
      */
-    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
+    LoginUserVO userLogin(UserLoginRequest userLoginRequest, HttpServletRequest request);
 
     /**
      * 用户登录（微信开放平台）
@@ -116,4 +117,21 @@ public interface UserService extends IService<User> {
      */
     QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 
+    /**
+     * 更新个人信息
+     * @param userUpdateMyRequest
+     * @param request
+     * @return
+     */
+
+    boolean updateMyUser(UserUpdateMyRequest userUpdateMyRequest, HttpServletRequest request);
+
+    /**
+     * 分页获取用户VO
+     * @param userQueryRequest
+     * @param request
+     * @return
+     */
+
+    Page<UserVO> listUserVOByPage(UserQueryRequest userQueryRequest, HttpServletRequest request);
 }

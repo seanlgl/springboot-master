@@ -44,14 +44,6 @@ public class FileController {
     @Resource
     private CosManager cosManager;
 
-    /**
-     * 文件上传
-     *
-     * @param multipartFile
-     * @param uploadFileRequest
-     * @param request
-     * @return
-     */
     @ApiOperation(value = "文件上传")
     @PostMapping("/upload")
     public BaseResponse<String> uploadFile(@RequestPart("file") MultipartFile multipartFile,

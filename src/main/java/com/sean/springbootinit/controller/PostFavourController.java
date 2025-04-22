@@ -44,17 +44,9 @@ public class PostFavourController {
     @Resource
     private UserService userService;
 
-    /**
-     * 收藏 / 取消收藏
-     *
-     * @param postFavourAddRequest
-     * @param request
-     * @return resultNum 收藏变化数
-     */
     @ApiOperation(value = "取消收藏" )
     @PostMapping("/")
-    public BaseResponse<Integer> doPostFavour(@RequestBody PostFavourAddRequest postFavourAddRequest,
-                                              HttpServletRequest request) {
+    public BaseResponse<Integer> doPostFavour(@RequestBody PostFavourAddRequest postFavourAddRequest, HttpServletRequest request) {
         if (postFavourAddRequest == null || postFavourAddRequest.getPostId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -65,16 +57,9 @@ public class PostFavourController {
         return ResultUtils.success(result);
     }
 
-    /**
-     * 获取我收藏的帖子列表
-     *
-     * @param postQueryRequest
-     * @param request
-     */
     @ApiOperation(value = "获取我收藏的帖子列表" )
     @PostMapping("/my/list/page")
-    public BaseResponse<Page<PostVO>> listMyFavourPostByPage(@RequestBody PostQueryRequest postQueryRequest,
-                                                             HttpServletRequest request) {
+    public BaseResponse<Page<PostVO>> listMyFavourPostByPage(@RequestBody PostQueryRequest postQueryRequest, HttpServletRequest request) {
         if (postQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -88,16 +73,9 @@ public class PostFavourController {
         return ResultUtils.success(postService.getPostVOPage(postPage, request));
     }
 
-    /**
-     * 获取用户收藏的帖子列表
-     *
-     * @param postFavourQueryRequest
-     * @param request
-     */
     @ApiOperation(value = "获取用户收藏的帖子列表" )
     @PostMapping("/list/page")
-    public BaseResponse<Page<PostVO>> listFavourPostByPage(@RequestBody PostFavourQueryRequest postFavourQueryRequest,
-            HttpServletRequest request) {
+    public BaseResponse<Page<PostVO>> listFavourPostByPage(@RequestBody PostFavourQueryRequest postFavourQueryRequest, HttpServletRequest request) {
         if (postFavourQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

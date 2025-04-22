@@ -34,17 +34,9 @@ public class PostThumbController {
     @Resource
     private UserService userService;
 
-    /**
-     * 点赞 / 取消点赞
-     *
-     * @param postThumbAddRequest
-     * @param request
-     * @return resultNum 本次点赞变化数
-     */
     @ApiOperation(value = "点赞 / 取消点赞" )
     @PostMapping("/")
-    public BaseResponse<Integer> doThumb(@RequestBody PostThumbAddRequest postThumbAddRequest,
-                                         HttpServletRequest request) {
+    public BaseResponse<Integer> doThumb(@RequestBody PostThumbAddRequest postThumbAddRequest, HttpServletRequest request) {
         if (postThumbAddRequest == null || postThumbAddRequest.getPostId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

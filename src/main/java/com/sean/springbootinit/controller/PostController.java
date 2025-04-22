@@ -31,7 +31,6 @@ import java.util.List;
 
 /**
  * 帖子接口
- *
  */
 @Api(tags = "帖子接口")
 @RestController
@@ -45,16 +44,7 @@ public class PostController {
     @Resource
     private UserService userService;
 
-    // region 增删改查
-
-    /**
-     * 创建
-     *
-     * @param postAddRequest
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "创建帖子" )
+    @ApiOperation(value = "创建帖子")
     @PostMapping("/add")
     public BaseResponse<Long> addPost(@RequestBody PostAddRequest postAddRequest, HttpServletRequest request) {
         if (postAddRequest == null) {
@@ -77,14 +67,7 @@ public class PostController {
         return ResultUtils.success(newPostId);
     }
 
-    /**
-     * 删除
-     *
-     * @param deleteRequest
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "删除帖子" )
+    @ApiOperation(value = "删除帖子")
     @PostMapping("/delete")
     public BaseResponse<Boolean> deletePost(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
@@ -103,13 +86,7 @@ public class PostController {
         return ResultUtils.success(b);
     }
 
-    /**
-     * 更新（仅管理员）
-     *
-     * @param postUpdateRequest
-     * @return
-     */
-    @ApiOperation(value = "跟新帖子(仅管理员)" )
+    @ApiOperation(value = "跟新帖子(仅管理员)")
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updatePost(@RequestBody PostUpdateRequest postUpdateRequest) {
@@ -132,13 +109,7 @@ public class PostController {
         return ResultUtils.success(result);
     }
 
-    /**
-     * 根据 id 获取
-     *
-     * @param id
-     * @return
-     */
-    @ApiOperation(value = "根据id获取信息" )
+    @ApiOperation(value = "根据id获取信息")
     @GetMapping("/get/vo")
     public BaseResponse<PostVO> getPostVOById(long id, HttpServletRequest request) {
         if (id <= 0) {
@@ -151,13 +122,7 @@ public class PostController {
         return ResultUtils.success(postService.getPostVO(post, request));
     }
 
-    /**
-     * 分页获取列表（仅管理员）
-     *
-     * @param postQueryRequest
-     * @return
-     */
-    @ApiOperation(value = "分页获取列表(仅管理员)" )
+    @ApiOperation(value = "分页获取列表(仅管理员)")
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<Post>> listPostByPage(@RequestBody PostQueryRequest postQueryRequest) {
@@ -168,17 +133,10 @@ public class PostController {
         return ResultUtils.success(postPage);
     }
 
-    /**
-     * 分页获取列表（封装类）
-     *
-     * @param postQueryRequest
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "分页获取列表封装类" )
+    @ApiOperation(value = "分页获取列表封装类")
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<PostVO>> listPostVOByPage(@RequestBody PostQueryRequest postQueryRequest,
-            HttpServletRequest request) {
+                                                       HttpServletRequest request) {
         long current = postQueryRequest.getCurrent();
         long size = postQueryRequest.getPageSize();
         // 限制爬虫
@@ -188,17 +146,10 @@ public class PostController {
         return ResultUtils.success(postService.getPostVOPage(postPage, request));
     }
 
-    /**
-     * 分页获取当前用户创建的资源列表
-     *
-     * @param postQueryRequest
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "分页获取当前用户创建的资源列表" )
+    @ApiOperation(value = "分页获取当前用户创建的资源列表")
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<PostVO>> listMyPostVOByPage(@RequestBody PostQueryRequest postQueryRequest,
-            HttpServletRequest request) {
+                                                         HttpServletRequest request) {
         if (postQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -213,19 +164,10 @@ public class PostController {
         return ResultUtils.success(postService.getPostVOPage(postPage, request));
     }
 
-    // endregion
-
-    /**
-     * 分页搜索（从 ES 查询，封装类）
-     *
-     * @param postQueryRequest
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "分页查询(从 ES查询,封装类)" )
+    @ApiOperation(value = "分页查询(从 ES查询,封装类)")
     @PostMapping("/search/page/vo")
     public BaseResponse<Page<PostVO>> searchPostVOByPage(@RequestBody PostQueryRequest postQueryRequest,
-            HttpServletRequest request) {
+                                                         HttpServletRequest request) {
         long size = postQueryRequest.getPageSize();
         // 限制爬虫
         ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
@@ -233,14 +175,7 @@ public class PostController {
         return ResultUtils.success(postService.getPostVOPage(postPage, request));
     }
 
-    /**
-     * 编辑（用户）
-     *
-     * @param postEditRequest
-     * @param request
-     * @return
-     */
-    @ApiOperation(value = "编辑信息(用户)" )
+    @ApiOperation(value = "编辑信息(用户)")
     @PostMapping("/edit")
     public BaseResponse<Boolean> editPost(@RequestBody PostEditRequest postEditRequest, HttpServletRequest request) {
         if (postEditRequest == null || postEditRequest.getId() <= 0) {

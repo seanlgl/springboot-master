@@ -41,8 +41,7 @@ public class WxMpController {
     private WxMpMessageRouter router;
 
     @PostMapping("/")
-    public void receiveMessage(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    public void receiveMessage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         // 校验消息签名，判断是否为公众平台发的消息
@@ -90,12 +89,6 @@ public class WxMpController {
         }
     }
 
-    /**
-     * 设置公众号菜单
-     *
-     * @return
-     * @throws WxErrorException
-     */
     @ApiOperation(value = " 设置公众号菜单" )
     @GetMapping("/setMenu")
     public String setMenu() throws WxErrorException {
@@ -110,7 +103,7 @@ public class WxMpController {
         wxMenuButton1SubButton1.setType(MenuButtonType.VIEW);
         wxMenuButton1SubButton1.setName("跳转页面");
         wxMenuButton1SubButton1.setUrl(
-                "https://sean.icu");
+                "https://sean.xxx");
         wxMenuButton1.setSubButtons(Collections.singletonList(wxMenuButton1SubButton1));
 
         // 菜单二
@@ -126,7 +119,7 @@ public class WxMpController {
         WxMenuButton wxMenuButton3SubButton1 = new WxMenuButton();
         wxMenuButton3SubButton1.setType(MenuButtonType.VIEW);
         wxMenuButton3SubButton1.setName("编程学习");
-        wxMenuButton3SubButton1.setUrl("https://sean.icu");
+        wxMenuButton3SubButton1.setUrl("https://sean.xxx");
         wxMenuButton3.setSubButtons(Collections.singletonList(wxMenuButton3SubButton1));
 
         // 设置主菜单
